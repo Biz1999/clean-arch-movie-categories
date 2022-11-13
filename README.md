@@ -1,8 +1,6 @@
-Clean Architecture example
+# Categorias de Filmes
 
-Multiporject maven.
-
-Explain
+Exemplo de arquitetura limpa
 
 https://medium.com/swlh/clean-architecture-java-spring-fea51e26e00
 
