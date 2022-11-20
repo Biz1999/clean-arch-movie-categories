@@ -1,0 +1,15 @@
+{
+  "status": "Success",
+  "code": "200 OK",
+  "message": "OK",
+  "data": [
+    {
+      "name": "Drama",
+      "available": true
+    },
+    {
+      "name": "Horror",
+      "available": false
+    }
+  ]
+}
