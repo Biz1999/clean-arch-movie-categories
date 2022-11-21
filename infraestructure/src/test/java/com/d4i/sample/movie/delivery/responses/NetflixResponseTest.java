@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
+import static com.d4i.sample.movie.shared.constants.CommonConstants.OK;
+import static com.d4i.sample.movie.shared.constants.CommonConstants.SUCCESS;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetflixResponseTest {
@@ -19,9 +21,9 @@ class NetflixResponseTest {
         assertNull(categoryRestNetflixResponse.getData());
 
 
-        String status = "Success";
+        String status = SUCCESS;
         String code = "200 Ok";
-        String message = "OK";
+        String message = OK;
         CategoryRest dramaCategoryRest = new CategoryRest("Drama", true);
 
         categoryRestNetflixResponse.setStatus(status);
