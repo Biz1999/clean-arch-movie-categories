@@ -1,0 +1,112 @@
+@startuml
+class CategoryRest {
+- {static} long serialVersionUID
+- String name
+- Boolean available
+}
+
+class CategoryControllerImpl implements CategoryController {
+- GetAllCategoriesUseCase getAllCategoriesUseCase
+- CreateCategoryUseCase createCategoryUseCase
+- CategoryRestConverter categoryRestConverter
++ NetflixResponse<Collection<CategoryRest>> getCategories()
++ NetflixResponse<Boolean> createCategory(CategoryRest)
+}
+
+interface CategoryController {
+~ NetflixResponse<Collection<CategoryRest>> getCategories()
+~ NetflixResponse<Boolean> createCategory(CategoryRest)
+}
+
+interface CategoryRepository {
++ Collection<Category> findByName(String)
+}
+
+class CategoryRepositoryConverter implements RepositoryConverter {
++ CategoryEntity mapToTable(Category)
++ Category mapToEntity(CategoryEntity)
+}
+
+interface RestConverter {
+~ E mapToEntity(R)
+~ R mapToRest(E)
+}
+
+interface RepositoryConverter {
+~ T mapToTable(P)
+~ P mapToEntity(T)
+}
+
+class NetflixResponse {
+- String status
+- String code
+- String message
+- T data
+- {static} long serialVersionUID
++ String getStatus()
++ void setStatus(String)
++ String getCode()
++ void setCode(String)
++ String getMessage()
++ void setMessage(String)
++ T getData()
++ void setData(T)
+}
+
+class CategoryRestConverter implements RestConverter {
++ Category mapToEntity(CategoryRest)
++ CategoryRest mapToRest(Category)
+}
+
+class CategoryEntity {
+- {static} long serialVersionUID
+- Long id
+- String name
+- Boolean available
+}
+
+class CategoryServiceImpl {
+- CategoryRepository categoryRepository
+- CategoryRepositoryConverter categoryRepositoryConverter
++ Collection<Category> getAllCategories()
++ void saveCategory(Category)
++ Boolean doesCategoryNameExists(String)
+}
+
+class Category {
+- Long id;
+- String name;
+- Boolean available;
+}
+
+interface CreateCategoryUseCase {
++ void execute(Category)
+}
+interface GetAllCategoriesUseCase {
++ Collection<Category> execute()
+}
+class GetAllCategoriesUseCaseImpl {
+- CategoryRepositoryService categoryRepositoryService
++ Collection<Category> execute()
+}
+class CreateCategoryUseCaseImpl {
+- CategoryRepositoryService categoryRepositoryService
++ void execute(Category)
+}
+
+interface CategoryRepositoryService {
++ Collection<Category> getAllCategories()
++ void saveCategory(Category)
++ Boolean doesCategoryNameExists(String)
+}
+
+class CategoryAlreadyExistException {
+}
+
+CreateCategoryUseCaseImpl <|.. CategoryAlreadyExistException
+CategoryRepositoryService <|.. CategoryServiceImpl
+GetAllCategoriesUseCase <|.. GetAllCategoriesUseCaseImpl
+CreateCategoryUseCase <|.. CreateCategoryUseCaseImpl
+CategoryRepositoryService <|.. GetAllCategoriesUseCaseImpl
+CategoryRepositoryService <|.. CreateCategoryUseCaseImpl
+@enduml
